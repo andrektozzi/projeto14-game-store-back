@@ -21,3 +21,28 @@ export async function CreateUser(req, res) {
         res.sendStatus(500);
     }
 }
+
+export async function LoginUser(req, res) {
+
+    const { email, password } = req.body;
+
+    try {
+        const user = await db.collection("users").findOne({ email });
+
+        if(user && bcrypt.compareSync(password, user.password)) {
+            const token = uuid;
+            const { name, email } = user;
+
+            await db.collection("sessions").insertOne({
+                token,
+                userId: user._id
+            });
+            return res.status(200).send({ name, email, token });
+        } else {
+            return res.status(403).send("email ou senha inválidos");
+        }
+
+    } catch (error) {
+        res.sendStatus(500);
+    }
+}
