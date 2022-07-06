@@ -2,7 +2,6 @@ import { db } from "../db/mongo.js";
 
 
 export async function TokenMiddleware(req, res, next) {
-    
     const authorization = req.headers.authorization;
     const token = authorization?.replace("Bearer ", "").trim();
 
