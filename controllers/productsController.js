@@ -20,12 +20,11 @@ export async function postProducts (req,res){
     }
 
     const repeteadTitle = await db.collection('products').find({title, category}).toArray();
-    console.log(repeteadTitle, repeteadTitle.length);
 
     if(repeteadTitle.length != 0){
         return res.status(422).send("This title already exist in this category");
     }
-    const promise = await db.collection('products').insert({title, description, urlImage, category});
+    const promise = await db.collection('products').insert({title, description, urlImage, category, price});
 
     if(!promise){
         return res.sendStatus(401)
