@@ -10,9 +10,9 @@ export async function getProducts(req, res){
 
 export async function postProducts (req,res){
 
-    const { title, description, urlImage, category} = req.body;
+    const { title, description, urlImage, category, price} = req.body;
 
-    const validation = productSchema.validate({title,description, urlImage, category}, { abortEarly: false });
+    const validation = productSchema.validate({title,description, urlImage, category, price}, { abortEarly: false });
 
     if(validation.error) {
         const messages = validation.error.details.map(e => e.message);
