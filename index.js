@@ -2,6 +2,7 @@ import express, { json } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import authRouter from "./routes/authRouter.js";
+import cartRouter from "./routes/cartRouter.js";
 
 dotenv.config();
 
@@ -10,5 +11,6 @@ app.use(json());
 app.use(cors());
 
 app.use(authRouter);
+app.use(cartRouter);
 
 app.listen(process.env.PORT, () => console.log("Server on!"));
