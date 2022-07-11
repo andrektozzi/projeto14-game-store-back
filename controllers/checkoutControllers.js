@@ -1,9 +1,18 @@
 import { db, objectId } from "../db/mongo.js";
+import {checkoutSchema} from "../schemas/checkoutSchema.js"
 
 export async function AddProductsCheckout(req, res) {
     const {products, total}  = req.body;
     const { _id } = res.locals.user;
-    console.log(_id)
+    console.log(_id);
+
+    const validation = checkoutSchema.validate({products, total}, { abortEarly: false });
+
+    if(validation.error) {
+        const messages = validation.error.details.map(e => e.message);
+        return res.status(422).send(messages);
+    }
+
 
     try {
         await db.collection("checkout").insertOne({
