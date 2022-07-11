@@ -32,3 +32,21 @@ export async function postProducts (req,res){
 
     res.sendStatus(201);
 }
+
+export async function deleteProducts(req, res){
+
+    const {title, category} = req.body
+
+    const product = await db.collection('products').find({title, category}).toArray();
+    
+    if(product.length === 0){
+        return res.sendStatus(400);
+    }
+
+    const promise = await db.collection('products').deleteOne({title, category});
+    if(!promise){
+        return res.sendStatus(401);
+    }
+    
+    res.status(200).send(product);
+}
