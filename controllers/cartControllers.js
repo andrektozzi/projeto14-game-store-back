@@ -43,3 +43,17 @@ export async function RenderProductsCart(req, res) {
         res.sendStatus(500);
     }
 }
+
+export async function DeleteCart(req, res) {
+    const { _id } = res.locals.user;
+
+    try {
+      await db.collection("cart").deleteMany({userId: new objectId(_id)});
+  
+      const productsCart = await db.collection("cart").find({userId: new objectId(_id)}).toArray();
+      console.log(productsCart);
+      res.status(200).send(productsCart);
+    } catch (error) {
+      res.sendStatus(500);
+    }
+  }

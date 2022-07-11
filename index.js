@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import authRouter from "./routes/authRouter.js";
 import productsRouter from "./routes/productsRouter.js"
 import cartRouter from "./routes/cartRouter.js";
+import checkoutRouter from  "./routes/checkoutRouter.js"
+import purchasesRouter from "./routes/purchasesRouter.js"
 
 dotenv.config();
 
@@ -14,5 +16,7 @@ app.use(cors());
 app.use(authRouter);
 app.use(productsRouter);
 app.use(cartRouter);
+app.use(checkoutRouter);
+app.use(purchasesRouter)
 
 app.listen(process.env.PORT, () => console.log("Server on!"));
